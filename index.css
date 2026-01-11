@@ -1,0 +1,212 @@
+:root {
+  --primary: #6366f1;
+  --secondary: #22d3ee;
+  --accent: #facc15;
+}
+
+/* ===== BODY FIX (NO CUT ISSUE) ===== */
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 30px 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background:
+    radial-gradient(circle at top left, #6366f1, transparent 40%),
+    radial-gradient(circle at bottom right, #22d3ee, transparent 40%),
+    linear-gradient(to bottom, #020617, #020617);
+  color: white;
+  overflow-y: auto;   /* IMPORTANT FIX */
+}
+
+/* ===== MAIN APP ===== */
+.app {
+  width: 680px;
+  max-width: 95%;
+  margin: 0 auto;
+  padding: 32px;
+  border-radius: 32px;
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.18),
+    rgba(255,255,255,0.05)
+  );
+  backdrop-filter: blur(30px);
+  box-shadow:
+    0 0 60px rgba(99,102,241,0.6),
+    inset 0 0 30px rgba(255,255,255,0.1);
+  animation: floatCard 6s ease-in-out infinite;
+}
+
+@keyframes floatCard {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+
+.title {
+  text-align: center;
+  font-size: 38px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #22d3ee, #6366f1, #facc15);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  text-align: center;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+/* ===== CONTROLS ===== */
+.controls {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+input[type="number"] {
+  width: 90px;
+  margin-left: 10px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  border: none;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* ===== STATS ===== */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.stats div {
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.2);
+  text-align: center;
+  font-weight: 600;
+}
+
+/* ===== TEXTAREA FIX ===== */
+textarea {
+  width: 100%;
+  min-height: 220px;
+  max-height: 360px;
+  resize: vertical;   /* USER CAN DRAG */
+  padding: 18px;
+  border-radius: 22px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: rgba(0,0,0,0.45);
+  color: white;
+}
+
+/* ===== BUTTONS ===== */
+.buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  margin: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: none;
+  font-weight: 800;
+  color: #020617;
+  background: linear-gradient(135deg, var(--secondary), var(--primary));
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 40px var(--accent);
+}
+
+/* ===== CONFETTI ===== */
+#confetti span {
+  position: fixed;
+  width: 12px;
+  height: 18px;
+  top: -20px;
+  background: hsl(var(--hue), 100%, 60%);
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(720deg); }
+}
+
+/* ===== AWARD SCREEN ===== */
+#awardScreen {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.95);
+  z-index: 9999;
+}
+
+.awardCard {
+  padding: 60px;
+  border-radius: 40px;
+  text-align: center;
+  background: radial-gradient(circle, gold, #92400e);
+  box-shadow: 0 0 140px gold;
+  animation: awardPop 1.3s cubic-bezier(.17,.89,.32,1.49);
+}
+
+@keyframes awardPop {
+  0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+  60% { transform: scale(1.4) rotate(6deg); }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+.trophy {
+  font-size: 170px;
+  animation: glow 1.4s infinite;
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 30px gold; }
+  50% { text-shadow: 0 0 120px gold; }
+  100% { text-shadow: 0 0 30px gold; }
+}
+
+/* ===== SMALL SCREEN SAFETY ===== */
+@media (max-height: 750px) {
+  textarea { min-height: 180px; }
+}
+/* 🚨 WARNING TOAST */
+#warningBox {
+  position: fixed;
+  top: 20px;
+  right: -400px;
+  padding: 16px 28px;
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  color: white;
+  font-weight: bold;
+  border-radius: 14px;
+  box-shadow: 0 0 40px rgba(255,0,0,0.6);
+  z-index: 9999;
+  transition: right 0.6s ease;
+}
+
+#warningBox.show {
+  right: 20px;
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+  75% { transform: translateX(-8px); }
+  100% { transform: translateX(0); }
+}
